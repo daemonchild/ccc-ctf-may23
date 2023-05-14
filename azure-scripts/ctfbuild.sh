@@ -204,7 +204,7 @@ buildctfdsvr () {
 
     # add Rules to firewall
 
-done
+}
 
 
 
@@ -238,7 +238,7 @@ builddockersvr () {
 
     # add Rules to firewall
 
-done
+}
 
 
 
