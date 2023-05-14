@@ -143,12 +143,12 @@ buildfirewalls () {
     echo "Building Firewalls and Rules"
 
     # Network Security Groups
-    az network nsg create --resource-group $resgrp --name "nsg-$(utilsubnetname)"
-    az network nsg create --resource-group $resgrp --name "nsg-$(guacsubnetname)"
-    az network nsg create --resource-group $resgrp --name "nsg-$(ctfdsubnetname)"
-    az network nsg create --resource-group $resgrp --name "nsg-$(appgwsubnetname)"
+    az network nsg create --resource-group $resgrp --name "nsg-${utilsubnetname}"
+    az network nsg create --resource-group $resgrp --name "nsg-${guacsubnetname}"
+    az network nsg create --resource-group $resgrp --name "nsg-${ctfdsubnetname}"
+    az network nsg create --resource-group $resgrp --name "nsg-${appgwsubnetname}"
 
-    az network nsg create --resource-group $resgrp --name "nsg-$(appgwsubnetname)"
+    az network nsg create --resource-group $resgrp --name "nsg-${appgwsubnetname}"
 
     # Rules
 
