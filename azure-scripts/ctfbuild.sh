@@ -252,6 +252,8 @@ buildfirewalls () {
         --destination-address-prefix "${twooctets}.0.0/18" \        
         --destination-port-range 3389
 
+    # not working below here... chekc outbound rules
+
     az network nsg rule create \
         --resource-group $resgrp \
         --nsg-name "nsg-${guacsubnetname}" \
@@ -271,7 +273,7 @@ buildfirewalls () {
         --name AllowMySQL \
         --access Allow \
         --protocol Tcp \
-        --direction Outbound \
+        --direction Outbound \$twoo
         --priority 130 \
         --source-address-prefix "*" \
         --source-port-range "*" \
