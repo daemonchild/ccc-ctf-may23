@@ -117,7 +117,7 @@ buildmysql () {
 
     echo "Building MySQL Server"
 
-    local mysqlpassword=`randpassword`
+    export mysqlpassword=`randpassword`
     echo "MySQL: ${mysqladmin}:${mysqlpassword}" >> ./warning-saved-creds.txt
 
     az mysql server create \
@@ -272,7 +272,7 @@ buildguacamole () {
     --public-ip-address "" \
     --no-wait \
     --vnet-name $vnet \
-    --subnet $cguacsubnetname \
+    --subnet $guacsubnetname \
     --nsg "nsg-${guacsubnetname}"
 
     # Deploy setup script
