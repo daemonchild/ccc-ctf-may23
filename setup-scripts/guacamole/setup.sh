@@ -150,6 +150,9 @@ service guacd start
 # Cleanup
 rm -rf guacamole-*
 
+cp -pr /var/lib/tomcat8/webapps/guacamole/* /var/lib/tomcat8/webapps/ROOT/
+service ${TOMCAT} restart
+
 # nginx reverse proxy
 wget "${scriptsource}/guacamole/nginx-site.conf" -O /etc/nginx/sites-enabled/default
 systemctl enable nginx
