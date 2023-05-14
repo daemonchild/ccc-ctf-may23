@@ -195,7 +195,86 @@ buildfirewalls () {
         --destination-address-prefix "*" \
         --destination-port-range 443
 
-        
+    # Guacamole Network
+
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnetname}" \
+        --name AllowHTTP \
+        --access Allow \
+        --protocol Tcp \
+        --direction Inbound \
+        --priority 100 \
+        --source-address-prefix Internet \
+        --source-port-range "*" \
+        --destination-address-prefix "*" \
+        --destination-port-range 80
+
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnetname}" \
+        --name AllowAppGWPorts \
+        --access Allow \
+        --protocol Tcp \
+        --direction Inbound \
+        --priority 110 \
+        --source-address-prefix "*" \
+        --source-port-range "*" \
+        --destination-address-prefix "*" \
+        --destination-port-range "65200-65535"
+
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnetname}" \
+        --name AllowRDP \
+        --access Allow \
+        --protocol Tcp \
+        --direction Outbound \
+        --priority 100 \
+        --source-address-prefix "*" \
+        --source-port-range "*" \
+        --destination-address-prefix "${twooctets}" \
+        --destination-port-range 3389
+
+    # max 63 teams
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnetname}" \
+        --name AllowRDPtoKali \
+        --access Allow \
+        --protocol Tcp \
+        --direction Outbound \
+        --priority 100 \
+        --source-address-prefix "*" \
+        --source-port-range "*" \
+        --destination-address-prefix "${twooctets}.0.0/18" \        
+        --destination-port-range 3389
+
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnetname}" \
+        --name AllowSSHtoKali \
+        --access Allow \
+        --protocol Tcp \
+        --direction Outbound \
+        --priority 100 \
+        --source-address-prefix "*" \
+        --source-port-range "*" \
+        --destination-address-prefix "${twooctets}.0.0/18" \        
+        --destination-port-range 22
+
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnetname}" \
+        --name AllowMySQL \
+        --access Allow \
+        --protocol Tcp \
+        --direction Outbound \
+        --priority 110 \
+        --source-address-prefix "*" \
+        --source-port-range "*" \
+        --destination-address-prefix "*" \        
+        --destination-port-range 3306
 
 }
 
@@ -285,7 +364,7 @@ buildguacamole () {
     az vm run-command invoke -g $resgrp -n $vmname   \
     --command-id RunShellScript \
     --scripts "sudo sed -i.bkp -e 's/mysqlpassword/$mysqlpassword/g' \
-    -e 's/mysqldb/$mysqldb/g' \
+    -e 's/mysqldb/$guacdb/g' \
     -e 's/mysqlsvr/$mysqlsvr/g' \
     -e 's/mysqladmin/$mysqladmin/g' /tmp/guac-setup.sh"
 
