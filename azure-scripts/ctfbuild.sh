@@ -126,7 +126,7 @@ buildmysql () {
     --location $location \
     --admin-user $mysqladmin \
     --admin-password $mysqlpassword \
-    --sku-name $dbvmsku \
+    --sku-name $mysqlsku \
     --storage-size 51200 \
     --ssl-enforcement Disabled
 
@@ -327,7 +327,7 @@ builddockersvr () {
 
     # add Rules to firewall
 
-    
+
 
 }
 
