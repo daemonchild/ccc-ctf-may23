@@ -152,7 +152,19 @@ buildfirewalls () {
 
     # Rules
 
-
+    # Utility Network
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${utilsubnetname}" \
+        --name AllowSSHfromInternet \
+        --access Allow \
+        --protocol Tcp \
+        --direction Inbound \
+        --priority 100 \
+        --source-address-prefix Internet \
+        --source-port-range "*" \
+        --destination-address-prefix "*" \
+        --destination-port-range 22
 
 }
 
@@ -174,6 +186,11 @@ buildutilsvr () {
     --subnet $utilsubnetname \
     --nsg "nsg-${utilsubnetname}" 
 
+    # Deploy setup script
+
+    az vm run-command invoke -g $resgrp -n $vmname  \
+        --command-id RunShellScript \
+        --scripts "wget -O ${scriptsource}/util/setup.sh | bash" 
 }
 
 buildctfdsvr () {
@@ -200,9 +217,62 @@ buildctfdsvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/docker/setup.sh -O | bash" 
+        --scripts "wget -O ${scriptsource}/docker/setup.sh | bash" 
 
     # add Rules to firewall
+
+}
+
+
+buildguacamole () {
+
+   # Apache Guacamole Server - connection to Kali and Challenge networks
+    # Send this id to create
+
+    local id=$1
+    local vmname="${vmprefix}-Guacamole-${id}"
+
+    az vm create --name $vmname \
+    --resource-group $resgrp \
+    --size $linuxsku \
+    --image $linuximage \
+    --admin-username $ctfadmin \
+    --generate-ssh-keys \
+    --public-ip-address "" \
+    --no-wait \
+    --vnet-name $vnet \
+    --subnet $cguacsubnetname \
+    --nsg "nsg-${guacsubnetname}"
+
+    # Deploy setup script
+
+    az vm run-command invoke -g $resgrp -n $vmname  \
+        --command-id RunShellScript \
+        --scripts "wget -O ${scriptsource}/guacamole/setup.sh " 
+
+
+    # Install Application
+
+
+az vm run-command invoke -g $resgrp -n $vmprefix$i  \
+--command-id RunShellScript \
+--scripts "wget ${installguacamole} -O /tmp/install-guacamole.sh" 
+
+# Make changes to installer script
+for i in `seq 1 $scaleto`; do
+az vm run-command invoke -g $resgrp -n $vmprefix$i  \
+--command-id RunShellScript \
+--scripts "sudo sed -i.bkp -e 's/mysqlpassword/$mysqlpassword/g' \
+-e 's/mysqldb/$mysqldb/g' \
+-e 's/mysqlsvr/$mysqlsvr/g' \
+-e 's/mysqladmin/$mysqladmin/g' /tmp/install-guacamole.sh"
+done
+
+for i in `seq 1 $scaleto`; do
+az vm run-command invoke -g $resgrp -n $vmprefix$i \
+--command-id RunShellScript \
+--scripts "/bin/bash /tmp/install-guacamole.sh"
+done
 
 }
 
@@ -251,6 +321,7 @@ buildchallengenet () {
     az network vnet subnet create --name $subnetname --vnet-name $vnet --resource-group $resgrp --address-prefixes $subnet
 
 }
+
 
 buildkali () {
 
