@@ -341,6 +341,8 @@ buildguacamole () {
     local id=$1
     local vmname="${vmprefix}-Guacamole-${id}"
 
+    echo $vmname
+
     az vm create --name $vmname \
     --resource-group $resgrp \
     --size $linuxsku \
