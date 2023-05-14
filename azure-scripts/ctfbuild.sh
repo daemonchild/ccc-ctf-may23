@@ -74,9 +74,7 @@ setvars () {
     export mysqlsvr="mysql-${project}"
     export mysqlsvrurl="${mysqlsvr}.mysql.database.azure.com"
     export mysqladmin="${project}-admin"
-    export mysqlpassword=`randpassword`
 
-    echo "[**** Make note! MySQL admin creds ${mysqladmin}:${mysqlpassword} ****]"
 
     export guacdb="guacamoledb"
     export ctfddb="ctfd"
@@ -119,6 +117,9 @@ buildmysql () {
 
     echo "Building MySQL Server"
 
+    local mysqlpassword=`randpassword`
+    echo "MySQL: ${mysqladmin}:${mysqlpassword}" >> ./warning-saved-creds.txt
+
     az mysql server create \
     --resource-group $resgrp \
     --name $mysqlsvr \
@@ -135,6 +136,8 @@ buildmysql () {
     --name AllowAllForBuild \
     --start-ip-address 0.0.0.0 \
     --end-ip-address 255.255.255.255
+
+    echo "[**** Make note! MySQL admin creds ${mysqladmin}:${mysqlpassword} ****]"
 
 }
 
@@ -166,6 +169,34 @@ buildfirewalls () {
         --destination-address-prefix "*" \
         --destination-port-range 22
 
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${utilsubnetname}" \
+        --name AllowHTTPfromInternet \
+        --access Allow \
+        --protocol Tcp \
+        --direction Inbound \
+        --priority 110 \
+        --source-address-prefix Internet \
+        --source-port-range "*" \
+        --destination-address-prefix "*" \
+        --destination-port-range 80
+
+    az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${utilsubnetname}" \
+        --name AllowHTTPSfromInternet \
+        --access Allow \
+        --protocol Tcp \
+        --direction Inbound \
+        --priority 120 \
+        --source-address-prefix Internet \
+        --source-port-range "*" \
+        --destination-address-prefix "*" \
+        --destination-port-range 443
+
+        
+
 }
 
 buildutilsvr () {
@@ -180,7 +211,7 @@ buildutilsvr () {
     --image $linuximage \
     --admin-username $ctfadmin \
     --generate-ssh-keys \
-    --public-ip-address "Standard" \
+    --public-ip-address "pip-${vmname}" \
     --no-wait \
     --vnet-name $vnet \
     --subnet $utilsubnetname \
@@ -190,7 +221,7 @@ buildutilsvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/util/setup.sh | bash" 
+        --scripts "wget -O ${scriptsource}/utilsvr/setup.sh | bash" 
 }
 
 buildctfdsvr () {
@@ -217,7 +248,7 @@ buildctfdsvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/docker/setup.sh | bash" 
+        --scripts "wget -O ${scriptsource}/ctfd/setup.sh | bash" 
 
     # add Rules to firewall
 
@@ -248,31 +279,19 @@ buildguacamole () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/guacamole/setup.sh " 
+        --scripts "wget -O ${scriptsource}/guacamole/setup.sh -O /tmp/guac-setup.sh" 
 
+    # Make changes to installer script for mysql details
+    az vm run-command invoke -g $resgrp -n $vmprefix$i  \
+    --command-id RunShellScript \
+    --scripts "sudo sed -i.bkp -e 's/mysqlpassword/$mysqlpassword/g' \
+    -e 's/mysqldb/$mysqldb/g' \
+    -e 's/mysqlsvr/$mysqlsvr/g' \
+    -e 's/mysqladmin/$mysqladmin/g' /tmp/guac-setup.sh"
 
-    # Install Application
-
-
-az vm run-command invoke -g $resgrp -n $vmprefix$i  \
---command-id RunShellScript \
---scripts "wget ${installguacamole} -O /tmp/install-guacamole.sh" 
-
-# Make changes to installer script
-for i in `seq 1 $scaleto`; do
-az vm run-command invoke -g $resgrp -n $vmprefix$i  \
---command-id RunShellScript \
---scripts "sudo sed -i.bkp -e 's/mysqlpassword/$mysqlpassword/g' \
--e 's/mysqldb/$mysqldb/g' \
--e 's/mysqlsvr/$mysqlsvr/g' \
--e 's/mysqladmin/$mysqladmin/g' /tmp/install-guacamole.sh"
-done
-
-for i in `seq 1 $scaleto`; do
-az vm run-command invoke -g $resgrp -n $vmprefix$i \
---command-id RunShellScript \
---scripts "/bin/bash /tmp/install-guacamole.sh"
-done
+    az vm run-command invoke -g $resgrp -n $vmprefix$i \
+    --command-id RunShellScript \
+    --scripts "/bin/bash /tmp/guac-setup.sh"
 
 }
 
@@ -307,6 +326,8 @@ builddockersvr () {
         --scripts "wget -O ${scriptsource}/docker/setup.sh -O | bash" 
 
     # add Rules to firewall
+
+    
 
 }
 
