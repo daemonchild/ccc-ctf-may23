@@ -241,9 +241,6 @@ builddockersvr () {
 }
 
 
-
-}
-
 buildchallengenet () {
 
     # Supply team number
@@ -254,7 +251,6 @@ buildchallengenet () {
     az network vnet subnet create --name $subnetname --vnet-name $vnet --resource-group $resgrp --address-prefixes $subnet
 
 }
-
 
 buildkali () {
 
