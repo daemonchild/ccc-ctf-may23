@@ -38,7 +38,7 @@ setvars () {
     export utilsubnetname="subnetUtility"
     export guacsubnetname="subnetGuacamole"
     export ctfdsubnetname="subnetCTFd"
-    export appgwsubnet="subnetAppGw"
+    export appgwsubnetname="subnetAppGw"
 
     export challengenetprefix="subnetTeam"
 
