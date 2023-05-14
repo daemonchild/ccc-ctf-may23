@@ -1,19 +1,21 @@
-#
-#
-#
-#
-#
-#
+# 
+#                      _    __                           ____   ___ ____  _____ 
+#   ___ ___ ___    ___| |_ / _|  _ __ ___   __ _ _   _  |___ \ / _ \___ \|___ / 
+#  / __/ __/ __|  / __| __| |_  | '_ ` _ \ / _` | | | |   __) | | | |__) | |_ \ 
+# | (_| (_| (__  | (__| |_|  _| | | | | | | (_| | |_| |  / __/| |_| / __/ ___) |
+#  \___\___\___|  \___|\__|_|   |_| |_| |_|\__,_|\__, | |_____|\___/_____|____/ 
+#                                                |___/                          
 #
 
-# Variables
 
+# Util Functions
 randpassword () {
 
     < /dev/urandom tr -dc _A-Z-a-z-0-9[!=-_+^%] | head -c${1:-40}
 
 }
 
+# Variables
 setvars () {
 
     echo "[Setting Variables]"
@@ -244,7 +246,7 @@ buildfirewalls () {
         --access Allow \
         --protocol Tcp \
         --direction Outbound \
-        --priority 100 \
+        --priority 110 \
         --source-address-prefix "*" \
         --source-port-range "*" \
         --destination-address-prefix "${twooctets}.0.0/18" \        
@@ -257,7 +259,7 @@ buildfirewalls () {
         --access Allow \
         --protocol Tcp \
         --direction Outbound \
-        --priority 100 \
+        --priority 120 \
         --source-address-prefix "*" \
         --source-port-range "*" \
         --destination-address-prefix "${twooctets}.0.0/18" \        
@@ -270,7 +272,7 @@ buildfirewalls () {
         --access Allow \
         --protocol Tcp \
         --direction Outbound \
-        --priority 110 \
+        --priority 130 \
         --source-address-prefix "*" \
         --source-port-range "*" \
         --destination-address-prefix "*" \        
