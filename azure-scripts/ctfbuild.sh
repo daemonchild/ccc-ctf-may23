@@ -291,10 +291,10 @@ buildutilsvr () {
     --admin-username $ctfadmin \
     --generate-ssh-keys \
     --public-ip-address "pip-${vmname}" \
-    --no-wait \
     --vnet-name $vnet \
     --subnet $utilsubnetname \
     --nsg "nsg-${utilsubnetname}" 
+    #--no-wait \
 
     # Deploy setup script
 
@@ -318,10 +318,10 @@ buildctfdsvr () {
     --admin-username $ctfadmin \
     --generate-ssh-keys \
     --public-ip-address "" \
-    --no-wait \
     --vnet-name $vnet \
     --subnet $ctfdsubnetname \
     --nsg "nsg-${ctfdsubnetname}"
+    #--no-wait \
 
     # Deploy setup script
 
@@ -329,7 +329,6 @@ buildctfdsvr () {
         --command-id RunShellScript \
         --scripts "wget -O ${scriptsource}/ctfd/setup.sh | bash" 
 
-    # add Rules to firewall
 
 }
 
@@ -349,10 +348,10 @@ buildguacamole () {
     --admin-username $ctfadmin \
     --generate-ssh-keys \
     --public-ip-address "" \
-    --no-wait \
     --vnet-name $vnet \
     --subnet $guacsubnetname \
     --nsg "nsg-${guacsubnetname}"
+    #--no-wait \
 
     # Deploy setup script
 
@@ -393,10 +392,10 @@ builddockersvr () {
     --admin-username $ctfadmin \
     --generate-ssh-keys \
     --public-ip-address "" \
-    --no-wait \
     --vnet-name $vnet \
     --subnet $dockersubnetname \
     --nsg "nsg-${vmname}" 
+    #--no-wait \
 
     # Deploy setup script
 
@@ -451,10 +450,10 @@ buildkali () {
     --admin-username $kaliadmin \
     --generate-ssh-keys \
     --public-ip-address "" \
-    --no-wait \
     --vnet-name $vnet \
     --subnet $subnetname \
     --nsg "nsg-${vmname}" 
+    #--no-wait \
 
     # Deploy setup script
 

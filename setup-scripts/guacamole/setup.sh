@@ -151,7 +151,8 @@ service guacd start
 rm -rf guacamole-*
 
 # nginx reverse proxy
-wget -O $scriptsource/guacamole/nginx-site.conf > /etc/nginx/sites-enabled/default
-
+wget "${scriptsource}/guacamole/nginx-site.conf" -O /etc/nginx/sites-enabled/default
+systemctl enable nginx
+systemctl restart nginx
 
 echo -e "Installation Complete\nhttp://localhost:8080/guacamole/\nDefault login guacadmin:guacadmin\nBe sure to change the password."
