@@ -19,67 +19,67 @@ setvars () {
     echo "[Setting Variables]"
 
     # Global to Deployment
-    project="script-test"
-    location="uksouth"
-    resgrp="rg-${project}"
+    export project="script-test"
+    export location="uksouth"
+    export resgrp="rg-${project}"
 
-    scriptsource="https://raw.githubusercontent.com/daemonchild/ccc-ctf-may23/main/setup-scripts"
+    export scriptsource="https://raw.githubusercontent.com/daemonchild/ccc-ctf-may23/main/setup-scripts"
 
     # Vnet
-    vnet="vnet-${project}"                          # (ctfVnet)
-    twooctets="10.150"
-    ipsubnet="${twooctets}.0.0/16"
+    export vnet="vnet-${project}"                          # (ctfVnet)
+    export twooctets="10.150"
+    export ipsubnet="${twooctets}.0.0/16"
 
-    utilsubnet="${twooctets}.240.0/24"
-    guacsubnet="${twooctets}.250.0/24"
-    ctfdsubnet="${twooctets}.251.0/24"
-    appgwsubnet="${twooctets}.252.0/24"
+    export utilsubnet="${twooctets}.240.0/24"
+    export guacsubnet="${twooctets}.250.0/24"
+    export ctfdsubnet="${twooctets}.251.0/24"
+    export appgwsubnet="${twooctets}.252.0/24"
 
-    utilsubnetname="subnetUtility"
-    guacsubnetname="subnetGuacamole"
-    ctfdsubnetname="subnetCTFd"
-    appgwsubnet="subnetAppGw"
+    export utilsubnetname="subnetUtility"
+    export guacsubnetname="subnetGuacamole"
+    export ctfdsubnetname="subnetCTFd"
+    export appgwsubnet="subnetAppGw"
 
-    challengenetprefix="subnetTeam"
+    export challengenetprefix="subnetTeam"
 
     # AppGw
 
     # VMs Common
 
-    ctfadmin="ctfadmin"
-    kaliadmin="kaliadmin"
+    export ctfadmin="ctfadmin"
+    export kaliadmin="kaliadmin"
 
-    linuximage="Canonical:UbuntuServer:18.04-LTS:latest"
-    linuxsku="Standard_DS1_v2"
-    kaliimage="kali-linux:kali:kali-20231:2023.1.0"
-    kalisku="Standard_DS1_v2"
+    export linuximage="Canonical:UbuntuServer:18.04-LTS:latest"
+    export linuxsku="Standard_DS1_v2"
+    export kaliimage="kali-linux:kali:kali-20231:2023.1.0"
+    export kalisku="Standard_DS1_v2"
 
-    vmprefix="vm"
+    export vmprefix="vm"
 
     # Static IP (last octet)
-    kalistatic="200"
-    dockerstatic="50"
-    windows1static="31"
-    windows2static="32"
+    export kalistatic="200"
+    export dockerstatic="50"
+    export windows1static="31"
+    export windows2static="32"
 
     # Build Values
 
-    guacscale=1
-    ctfdscale=1
-    challenge=1
+    export guacscale=1
+    export ctfdscale=1
+    export challenge=1
 
     # MySQL Database
 
-    mysqlsku=B_Gen5_1
-    mysqlsvr="mysql-${project}"
-    mysqlsvrurl="${mysqlsvr}.mysql.database.azure.com"
-    mysqladmin="${project}-admin"
-    mysqlpassword=`randpassword`
+    export mysqlsku=B_Gen5_1
+    export mysqlsvr="mysql-${project}"
+    export mysqlsvrurl="${mysqlsvr}.mysql.database.azure.com"
+    export mysqladmin="${project}-admin"
+    export mysqlpassword=`randpassword`
 
     echo "[**** Make note! MySQL admin creds ${mysqladmin}:${mysqlpassword} ****]"
 
-    guacdb="guacamoledb"
-    ctfddb="ctfd"
+    export guacdb="guacamoledb"
+    export ctfddb="ctfd"
 
 }
 
