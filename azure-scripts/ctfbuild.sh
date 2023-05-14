@@ -172,7 +172,7 @@ buildutilsvr () {
     --no-wait \
     --vnet-name $vnet \
     --subnet $utilsubnetname \
-    --nsg "nsg$(utilsubnetname)" 
+    --nsg "nsg-${utilsubnetname}" 
 
 }
 
@@ -194,7 +194,7 @@ buildctfdsvr () {
     --no-wait \
     --vnet-name $vnet \
     --subnet $ctfdsubnetname \
-    --nsg "nsg-$(ctfdsubnetname)"
+    --nsg "nsg-${ctfdsubnetname}"
 
     # Deploy setup script
 
