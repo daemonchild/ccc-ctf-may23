@@ -73,7 +73,7 @@ setvars () {
     export mysqlsku=B_Gen5_1
     export mysqlsvr="mysql-${project}"
     export mysqlsvrurl="${mysqlsvr}.mysql.database.azure.com"
-    export mysqladmin="ctfadmin"
+    export mysqladmin="${ctfadmin}"
 
 
     export guacdb="guacamoledb"
