@@ -73,9 +73,13 @@ setvars () {
     export kaliadmin="kaliadmin"
 
     export linuximage="Canonical:UbuntuServer:18.04-LTS:latest"
-    export linuxsku="Standard_DS1_v2"
     export kaliimage="kali-linux:kali:kali-20231:2023.1.0"
-    export kalisku="Standard_DS1_v2"
+
+    export linuxsku="Standard_D2s_v3"
+    export kalisku="Standard_A2_v2"
+    export dockersku="Standard_A2_v2"
+    export guacsku="Standard_D2_v3"
+
 
     export vmprefix="vm"
 
@@ -97,7 +101,9 @@ setvars () {
     export mysqlsvr="mysql-${project}"
     export mysqlsvrurl="${mysqlsvr}.mysql.database.azure.com"
     export mysqladmin="${ctfadmin}"
-
+    export guacmysqluser="guacdbuser"
+    export ctfdmysqluser="ctfddbuser"
+    
 
     export guacdb="guacamoledb"
     export ctfddb="ctfd"
@@ -141,7 +147,14 @@ buildmysql () {
     echo "Building MySQL Server"
 
     export mysqlpassword=`randpassword`
-    echo "MySQL: ${mysqladmin}:${mysqlpassword}" >> ./warning-saved-creds.txt
+    echo "admin: ${mysqladmin}:${mysqlpassword}" >> ./warning-saved-creds.txt
+
+    export guacmysqlpassword=`randpassword`
+    echo "guac: ${guacmysqluser}:${guacmysqlpassword}" >> ./warning-saved-creds.txt
+
+    export guacmysqlpassword=`randpassword`
+    echo "ctfd: ${ctfdmysqluser}:${guacmysqlpassword}" >> ./warning-saved-creds.txt
+
 
     az mysql server create \
     --resource-group $resgrp \
@@ -160,7 +173,7 @@ buildmysql () {
     --start-ip-address 0.0.0.0 \
     --end-ip-address 255.255.255.255
 
-    echo "[**** Make note! MySQL admin creds ${mysqladmin}:${mysqlpassword} ****]"
+    echo "[**** Make note! MySQL admin creds saved in file ****]"
 
 }
 
@@ -338,7 +351,7 @@ buildctfdsvr () {
 
     az vm create --name $vmname \
     --resource-group $resgrp \
-    --size $linuxsku \
+    --size $ctfdsku \
     --image $linuximage \
     --admin-username $ctfadmin \
     --generate-ssh-keys \
@@ -384,7 +397,7 @@ buildguacamole () {
 
     az vm create --name $vmname \
     --resource-group $resgrp \
-    --size $linuxsku \
+    --size $guacsku \
     --image $linuximage \
     --admin-username $ctfadmin \
     --generate-ssh-keys \
@@ -428,7 +441,7 @@ builddockersvr () {
 
     az vm create --name $vmname \
     --resource-group $resgrp \
-    --size $linuxsku \
+    --size $dockersku \
     --image $linuximage \
     --admin-username $ctfadmin \
     --generate-ssh-keys \
