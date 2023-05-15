@@ -11,7 +11,14 @@ docker pull mattrayner/lamp:latest
 git clone https://github.com/daemonchild/file-generator.git
 cd file-generator
 docker build -t filegen:0.3 .
-docker run --restart always -d -p 9000:9000 --name api-filegen filegen:0.3
+docker run --restart always -dit --rm=true -p 9000:9000 --name api-filegen filegen:0.3
+
+# Pull CTF Challange Images
+docker pull scriptmonkeyblog/webby
+docker pull scriptmonkeyblog/hackback
+
+docker start --restart always -dit --rm=true -p 80:80 --name ctf-webby scriptmonkeyblog/webby
+docker start --restart always -dit --rm=true -p 22:22 --name ctf-hackback scriptmonkeyblog/hackback
 
 # Move ssh to another port
 echo Port 6222 >> /etc/ssh/sshd_config

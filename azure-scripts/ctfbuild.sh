@@ -24,6 +24,9 @@ setvars () {
     export project="script-test"
     export location="uksouth"
     export resgrp="rg-${project}"
+    export domainname="cybercollege.cymru"
+    export guacdnsname="login"
+    export ctfddnsname="scores"
 
     export scriptsource="https://raw.githubusercontent.com/daemonchild/ccc-ctf-may23/main/setup-scripts"
 
@@ -45,6 +48,24 @@ setvars () {
     export challengenetprefix="subnetTeam"
 
     # AppGw
+
+    export appgwname="appGW-${project}"
+    export appgwpipname="pip-${appgwname}"
+    
+    export appgwpoolguacname="${project}-pool-guacamole"
+    export appgwguacfqdn="${guacdnsname}.${domainname}"
+    export appgwguacrulename="${project}-routingrule-guacamole"
+    export appgwguaclistenername="${project}-listener-guacamole"
+    export appgwguacbename="${project}-backend-guacamole"
+    export appgwguacprobename="${project}vi "
+
+
+
+
+    export appgwpoolctfdname="${project}-pool-ctfd"
+    export appgwctfdfqdn="${ctfddnsname}.${domainname}"
+
+    
 
     # VMs Common
 
@@ -332,6 +353,9 @@ buildctfdsvr () {
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
         --scripts "wget -O ${scriptsource}/ctfd/setup.sh | bash" 
+
+    # Add to AppGw
+
 
 
 }
