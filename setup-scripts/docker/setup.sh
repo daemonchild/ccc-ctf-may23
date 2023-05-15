@@ -2,7 +2,7 @@
 
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install docker.io
+apt-get -y install docker.io docker-compose
 
 docker pull ubuntu:latest
 docker pull mattrayner/lamp:latest
