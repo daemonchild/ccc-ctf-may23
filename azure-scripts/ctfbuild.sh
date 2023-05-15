@@ -325,7 +325,7 @@ buildutilsvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/utilsvr/setup.sh | bash" 
+        --scripts "wget ${scriptsource}/utilsvr/setup.sh -O | bash" 
 }
 
 buildctfdsvr () {
