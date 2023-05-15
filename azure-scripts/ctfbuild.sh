@@ -325,7 +325,7 @@ buildutilsvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget ${scriptsource}/utilsvr/setup.sh -O | bash" 
+        --scripts "sudo bash" 
 }
 
 buildctfdsvr () {
@@ -352,7 +352,7 @@ buildctfdsvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/ctfd/setup.sh | bash" 
+        --scripts "wget -q -O - ${scriptsource}/ctfd/setup.sh | bash" 
 
     # Add to AppGw
 
@@ -431,7 +431,7 @@ builddockersvr () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/docker/setup.sh -O | bash" 
+        --scripts "wget -q -O - ${scriptsource}/docker/setup.sh | bash" 
 
     # add Rules to firewall
 
