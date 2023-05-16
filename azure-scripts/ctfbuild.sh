@@ -488,10 +488,6 @@ buildkali () {
     local subnet="${twooctets}.${team}.0/24"
     local staticip="${twooctets}.${team}.${kalistatic}"
 
-    subnetname="${snet}-team${i}"
-    snetprefix="${ipsubnet}.${i}"
-    cidr="${snetprefix}.0/24"
-
     dockerhostname="${vmprefix}-host-team${i}"
     kalihostname="${vmprefix}-kali-team${i}"
 
