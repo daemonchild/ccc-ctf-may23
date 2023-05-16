@@ -10,9 +10,9 @@ wget -q "${scriptsource}/ctfd/ctf351fork.tgz" -O /root/ctfd351fork.tgz
 tar -zxf /root/ctfd351fork.tgz
 cd ctfd351fork
 
+wget -q "${scriptsource}/ctfd/uploads.tgz" -O /root/uploads.tgz
+
 docker-compose build
 docker-compose up -d
-
-wget -q "${scriptsource}/ctfd/uploads.tgz" -O /root/uploads.tgz
 
 

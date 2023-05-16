@@ -18,10 +18,10 @@ su - ctfadmin -c "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoIefMlG8hxxyAMfC1
 # Plague Runner
 docker pull selenium/standalone-chrome
 docker run -dti -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
-wget https://raw.githubusercontent.com/Console/console.github.io/main/plague_runner.py -O /home/ctfadmin/plague_runner.py
+su - ctfadmin -c "wget https://raw.githubusercontent.com/Console/console.github.io/main/plague_runner.py -O /home/ctfadmin/plague_runner.py"
 
 # Get MySQL Data
 
-wget -q "${scriptsource}/utilsvr/create-dbs.sql" -O /root/create-dbs.sql
+su - ctfadmin -c "wget -q "${scriptsource}/utilsvr/create-dbs.sql" -O /ctfadmin/create-dbs.sql"
 
 
