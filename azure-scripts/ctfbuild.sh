@@ -509,16 +509,18 @@ buildkali () {
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
+    az network nic ip-config create --resource-group $resgrp --name "ipconfig-${vmname}" --nic-name "${vmname}VMNic"
+    az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig-${vmname}" --private-ip-address $staticip
+
+
+
     # Deploy setup script
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
         --scripts "wget -O ${scriptsource}/kali/setup.sh -O | bash" 
 
-    az network nic ip-config create --resource-group $resgrp --name "ipconfig-${kalihostname}" --nic-name "${kalihostname}VMNic"
-    az network nic ip-config update --resource-group $resgrp --nic-name "${kalihostname}VMNic" --name "ipconfig${kalihostname}" --private-ip-address $kalistatic
-
-
+ 
     # add Rules to firewall
 
 
