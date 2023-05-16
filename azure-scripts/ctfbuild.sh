@@ -435,6 +435,7 @@ builddockersvr () {
     local team=$1
     local vmname="${vmprefix}-Dockerhost-${team}"
     local staticip="${twooctets}.${team}.${dockerstatic}"
+    local subnetname="${challengenetprefix}-${team}"
 
     az network nsg create --resource-group $resgrp --name "nsg-${vmname}"
 
@@ -446,7 +447,7 @@ builddockersvr () {
     --generate-ssh-keys \
     --public-ip-address "" \
     --vnet-name $vnet \
-    --subnet $dockersubnetname \
+    --subnet $subnetname \
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
