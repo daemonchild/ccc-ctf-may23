@@ -12,7 +12,7 @@ cd ctfd351fork
 
 wget -q "${scriptsource}/ctfd/uploads.tgz" -O /root/uploads.tgz
 
-docker-compose build
-docker-compose up -d
+#docker-compose build
+#docker-compose up -d
 
 
