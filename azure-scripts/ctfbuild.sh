@@ -265,7 +265,7 @@ buildfirewalls () {
         --access Allow \
         --protocol Tcp \
         --direction Outbound \
-        --priority 100 \
+        --priority 120 \
         --source-address-prefix "*" \
         --source-port-range "*" \
         --destination-address-prefix "${twooctets}" \
@@ -280,9 +280,9 @@ buildfirewalls () {
         --protocol Tcp \
         --direction Outbound \
         --priority 110 \
-        --source-address-prefix "*" \
+        --source-address-prefix "${guacsubnet}" \
         --source-port-range "*" \
-        --destination-address-prefix "${twooctets}.0.0/18" \        
+        --destination-address-prefix "${twooctets}.0.0/18" \ 
         --destination-port-range 3389
 
     # not working below here... chekc outbound rules
@@ -295,7 +295,7 @@ buildfirewalls () {
         --protocol Tcp \
         --direction Outbound \
         --priority 120 \
-        --source-address-prefix "*" \
+        --source-address-prefix "${guacsubnet}" \
         --source-port-range "*" \
         --destination-address-prefix "${twooctets}.0.0/18" \        
         --destination-port-range 22
@@ -306,9 +306,9 @@ buildfirewalls () {
         --name AllowMySQL \
         --access Allow \
         --protocol Tcp \
-        --direction Outbound \$twoo
+        --direction Outbound \
         --priority 130 \
-        --source-address-prefix "*" \
+        --source-address-prefix  "${guacsubnet}" \
         --source-port-range "*" \
         --destination-address-prefix "*" \        
         --destination-port-range 3306
