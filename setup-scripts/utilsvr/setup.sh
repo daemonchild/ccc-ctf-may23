@@ -1,5 +1,7 @@
 #!/bin/bash
 
+scriptsource="https://raw.githubusercontent.com/daemonchild/ccc-ctf-may23/main/setup-scripts"
+
 apt-get -y update
 apt-get -y upgrade
 
@@ -17,4 +19,9 @@ su - ctfadmin -c "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCoIefMlG8hxxyAMfC1
 docker pull selenium/standalone-chrome
 docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
 wget https://raw.githubusercontent.com/Console/console.github.io/main/plague_runner.py -O /home/rich/plague_runner.py
+
+# Get MySQL Data
+
+wget -q "${scriptsource}/utilsvr/create-dbs.sql" -O /root/create-dbs.sql
+
 

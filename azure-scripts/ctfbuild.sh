@@ -21,7 +21,7 @@ setvars () {
     echo "[Setting Variables]"
 
     # Global to Deployment
-    export project="script-test"
+    export project="ccc-ctf-may23"
     export location="uksouth"
     export resgrp="rg-${project}"
     export domainname="cybercollege.cymru"
@@ -31,8 +31,8 @@ setvars () {
     export scriptsource="https://raw.githubusercontent.com/daemonchild/ccc-ctf-may23/main/setup-scripts"
 
     # Vnet
-    export vnet="vnet-${project}"                          # (ctfVnet)
-    export twooctets="10.150"
+    export vnet="vnet-${project}"                          
+    export twooctets="10.250"
     export ipsubnet="${twooctets}.0.0/16"
 
     export utilsubnet="${twooctets}.240.0/24"
@@ -57,14 +57,14 @@ setvars () {
     export appgwguacrulename="${project}-routingrule-guacamole"
     export appgwguaclistenername="${project}-listener-guacamole"
     export appgwguacbename="${project}-backend-guacamole"
-    export appgwguacprobename="${project}vi "
-
-
-
+    export appgwguacprobename="${project}-probe-guacamole"
 
     export appgwpoolctfdname="${project}-pool-ctfd"
     export appgwctfdfqdn="${ctfddnsname}.${domainname}"
-
+    export appgwctfdrulename="${project}-routingrule-ctfd"
+    export appgwctfdlistenername="${project}-listener-ctfd"
+    export appgwctfdbename="${project}-backend-ctfd"
+    export appgwctfdprobename="${project}-probe-ctfd"
     
 
     # VMs Common
@@ -79,7 +79,6 @@ setvars () {
     export kalisku="Standard_A2_v2"
     export dockersku="Standard_A2_v2"
     export guacsku="Standard_D2_v3"
-
 
     export vmprefix="vm"
 
@@ -101,10 +100,9 @@ setvars () {
     export mysqlsvr="mysql-${project}"
     export mysqlsvrurl="${mysqlsvr}.mysql.database.azure.com"
     export mysqladmin="${ctfadmin}"
+
     export guacmysqluser="guacdbuser"
     export ctfdmysqluser="ctfddbuser"
-    
-
     export guacdb="guacamoledb"
     export ctfddb="ctfd"
 
@@ -173,7 +171,8 @@ buildmysql () {
     --start-ip-address 0.0.0.0 \
     --end-ip-address 255.255.255.255
 
-    echo "[**** Make note! MySQL admin creds saved in file ****]"
+    echo "[**** Make note! MySQL database creds saved in 'warning-saved-creds.txt' ****]"
+    tail -n 3 ./warning-saved-creds.txt
 
 }
 
