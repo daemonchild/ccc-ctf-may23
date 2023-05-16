@@ -79,6 +79,7 @@ setvars () {
     export kalisku="Standard_A2_v2"
     export dockersku="Standard_A2_v2"
     export guacsku="Standard_D2_v3"
+    export ctfdsku="Standard_D2_v3"
 
     export vmprefix="vm"
 
