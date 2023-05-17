@@ -411,7 +411,7 @@ buildguacamole () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget ${scriptsource}/guacamole/setup.sh -O /tmp/guac-setup.sh" 
+        --scripts "wget -q ${scriptsource}/guacamole/setup.sh -O /tmp/guac-setup.sh" 
 
     # Make changes to installer script for mysql details
     az vm run-command invoke -g $resgrp -n $vmname   \
@@ -523,7 +523,7 @@ buildkali () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -O ${scriptsource}/kali/setup.sh -O | bash" 
+        --scripts "wget -q -O - ${scriptsource}/kali/setup.sh | bash" 
 
  
     # add Rules to firewall
