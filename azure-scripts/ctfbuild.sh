@@ -484,6 +484,8 @@ buildkali () {
     local team=$1
     local vmname="${vmprefix}-Kali-${team}"
 
+    echo "[Building Kali ${vmname}]"
+
     local subnetname="${challengenetprefix}-${team}"
     local subnet="${twooctets}.${team}.0/24"
     local staticip="${twooctets}.${team}.${kalistatic}"
