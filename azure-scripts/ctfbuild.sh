@@ -366,15 +366,6 @@ buildctfdsvr () {
         --command-id RunShellScript \
         --scripts "wget -q -O - ${scriptsource}/ctfd/setup.sh | bash" 
 
-    # modify
-    #      - UPLOAD_FOLDER=/var/uploads
-    #  - DATABASE_HOST=ctf-may23-guacamole.mysql.database.azure.com
-    #  - DATABASE_PROTOCOL=mysql+pymysql
-    #  - DATABASE_PORT=3306
-    #  - DATABASE_USER=guacamoleuser@ctf-may23-guacamole
-    #  - DATABASE_PASSWORD=1Promise2ChangeThisInProduction
-    #  - DATABASE_NAME=ctfd
-
 
     # Add to AppGw
 
