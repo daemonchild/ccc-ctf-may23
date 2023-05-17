@@ -411,7 +411,7 @@ buildguacamole () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -q ${scriptsource}/guacamole/setup.sh -O /root/gsetup.sh" 
+        --scripts "wget -q ${scriptsource}/guacamole/setup.sh -O /root/setup.sh" 
 
     # Make changes to installer script for mysql details
     az vm run-command invoke -g $resgrp -n $vmname   \
