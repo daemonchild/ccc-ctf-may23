@@ -452,8 +452,8 @@ builddockersvr () {
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
-    az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig-${vmname}" 
-    az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig-${vmname}" --private-ip-address $staticip
+    #az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" 
+    az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
     # Deploy setup script
 
@@ -514,8 +514,8 @@ buildkali () {
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
-    az network nic ip-config create --resource-group $resgrp --name "ipconfig-${vmname}" --nic-name "${vmname}VMNic"
-    az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig-${vmname}" --private-ip-address $staticip
+    #az network nic ip-config create --resource-group $resgrp --name "ipconfig${vmname}" --nic-name "${vmname}VMNic"
+    az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
 
 

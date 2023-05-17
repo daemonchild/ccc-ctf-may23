@@ -27,12 +27,22 @@ echo "HostKeyAlgorithms +ssh-rsa" >> /etc/ssh/sshd_config
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart sshd
 
+# Diable IPv6
+echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
+
 # Windows
 echo "[Installing xfce and XRDP]"
 apt-get -y install kali-defaults kali-root-login desktop-base xfce4 xfce4-places-plugin xfce4-goodies libu2f-udev
 apt-get -y install xrdp
+
+echo "port tcp://:3389" >> /etc/xrdp/xrdp.ini
+
 systemctl enable xrdp
 systemctl enable xrdp-sesman
+systemctl start xrdp
+systemctl start xrdp-sesman
 
 #mkdir /home/student/.vnc
 #echo "5tudent!" | vncpasswd -f > /home/student/.vnc/passwd
