@@ -15,7 +15,7 @@ export LC_TELEPHONE="en_GB.utf8"
 export LC_MEASUREMENT="en_GB.utf8"
 export LC_IDENTIFICATION="en_GB.utf8"
 export LC_ALL=
-
+echo "[Installing Full Kali]"
 apt update
 apt full-upgrade -y
 apt install -y kali-linux-default
@@ -28,6 +28,7 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 systemctl restart sshd
 
 # Windows
+echo "[Installing xfce and XRDP]"
 apt-get -y install kali-defaults kali-root-login desktop-base xfce4 xfce4-places-plugin xfce4-goodies libu2f-udev
 apt-get -y install xrdp
 systemctl enable xrdp
@@ -54,9 +55,9 @@ chsh student -s /bin/zsh
 
 
 # install chrome, firefox, additional tools
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /root/google-chrome-stable_current_amd64.deb
 apt-get -y install fonts-liberation desktop-file-utils mailcap man-db
-dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+dpkg -i /root/google-chrome-stable_current_amd64.deb
 
 
 cat <<EOF > /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
