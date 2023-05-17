@@ -23,5 +23,8 @@ su - ctfadmin -c "wget https://raw.githubusercontent.com/Console/console.github.
 # Get MySQL Data
 
 su - ctfadmin -c "wget -q "${scriptsource}/utilsvr/create-dbs.sql" -O /ctfadmin/create-dbs.sql"
+docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --mysql > guacinitdb.sql
+
+
 
 

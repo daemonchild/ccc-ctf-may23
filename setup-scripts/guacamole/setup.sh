@@ -21,8 +21,8 @@ docker run -d --name guacamole-151 -p 80:8080 --link guacd-151:guacd \
 	-e MYSQL_SSL_MODE=disabled \
 	guacamole/guacamole
 
-wget -q "${scriptsource}/guacamole/nginx-site.conf" -O /root/nginx-site.conf
+#wget -q "${scriptsource}/guacamole/nginx-site.conf" -O /root/nginx-site.conf
 
-docker run -d --name nginx-proxy -p 80:80 --link guacamole-151 nginx
+#docker run -d --name nginx-proxy -p 80:80 --link guacamole-151 nginx
 
-wget -q "${scriptsource}/guacamole/nginx-site.conf" -O /etc/nginx/sites-enabled/default
+#wget -q "${scriptsource}/guacamole/nginx-site.conf" -O /etc/nginx/sites-enabled/default
