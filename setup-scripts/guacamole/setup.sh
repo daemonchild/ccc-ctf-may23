@@ -10,7 +10,7 @@ docker pull nginx:latest
 
 docker run --name guacd-151 -d guacamole/guacd
 
-docker run -d --rm --name guacamole-151 --link guacd-151:guacd \
+docker run -d --name guacamole-151 --link guacd-151:guacd \
 	-e MYSQL_HOSTNAME=mysql-ccc-ctf-may23.mysql.database.azure.com \
 	-e MYSQL_PORT=3306 \
 	-e MYSQL_DATABASE=guacamoledb \
@@ -19,4 +19,4 @@ docker run -d --rm --name guacamole-151 --link guacd-151:guacd \
 	-e MYSQL_SSL_MODE=disabled \
 	guacamole/guacamole
 
-docker run -d --rm --name nginx-proxy -p 80:80 --link guaqamole-151 guacamole
+docker run -d --name nginx-proxy -p 80:80 --link guaqamole-151 guacamole
