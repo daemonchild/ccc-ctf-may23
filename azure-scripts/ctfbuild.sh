@@ -428,6 +428,14 @@ buildguacamole () {
 }
 
 
+loadcreds () {
+
+    export mysqladminpassword=`cat warning-saved-creds.txt | grep admin | cut -f 3 -d ":"`
+    export guacmysqlpassword=`cat warning-saved-creds.txt | grep guac | cut -f 3 -d ":"`
+    export ctfmysqlpassword=`cat warning-saved-creds.txt | grep ctfd | cut -f 3 -d ":"`
+
+}
+
 
 builddockersvr () {
 
