@@ -411,19 +411,19 @@ buildguacamole () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -q ${scriptsource}/guacamole/setup.sh -O /tmp/guac-setup.sh" 
+        --scripts "wget -q ${scriptsource}/guacamole/setup.sh -O /root/guac-setup.sh" 
 
     # Make changes to installer script for mysql details
     az vm run-command invoke -g $resgrp -n $vmname   \
     --command-id RunShellScript \
-    --scripts "sudo sed -i.bkp -e 's/mysqlpassword/$mysqlpassword/g' \
+    --scripts "sudo sed -i.bkp -e 's/mysqlpassword/$guacmysqlpassword/g' \
     -e 's/mysqldb/$guacdb/g' \
     -e 's/mysqlsvr/$mysqlsvr/g' \
-    -e 's/mysqladmin/$mysqladmin/g' /tmp/guac-setup.sh"
+    -e 's/mysqladmin/$guacmysqluser/g' /root/guac-setup.sh"
 
     az vm run-command invoke -g $resgrp -n $vmname  \
     --command-id RunShellScript \
-    --scripts "/bin/bash /tmp/guac-setup.sh"
+    --scripts "/bin/bash /root/setup.sh"
 
 }
 
