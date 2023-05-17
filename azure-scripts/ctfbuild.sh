@@ -452,6 +452,9 @@ builddockersvr () {
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
+    az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig-${vmname}" 
+    az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig-${vmname}" --private-ip-address $staticip
+
     # Deploy setup script
 
     az vm run-command invoke -g $resgrp -n $vmname  \
@@ -473,6 +476,9 @@ buildchallengenet () {
     local subnetname="${challengenetprefix}-${team}"
     local subnet="${twooctets}.${team}.0/24"
     az network vnet subnet create --name $subnetname --vnet-name $vnet --resource-group $resgrp --address-prefixes $subnet
+
+    builddockersvr $team
+    buildkali $team
 
 }
 
