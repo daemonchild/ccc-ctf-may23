@@ -76,8 +76,8 @@ setvars () {
     export kaliimage="kali-linux:kali:kali-20231:2023.1.0"
 
     export linuxsku="Standard_D2s_v3"
-    export kalisku="Standard_A2_v2"
-    export dockersku="Standard_A2_v2"
+    export kalisku="Standard_D2s_v3"
+    export dockersku="Standard_D2s_v3"
     export guacsku="Standard_D2_v3"
     export ctfdsku="Standard_D2_v3"
 
