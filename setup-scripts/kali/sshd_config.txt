@@ -1,0 +1,29 @@
+Port 22
+ListenAddress 0.0.0.0
+
+SyslogFacility AUTH
+LogLevel INFO
+
+PermitRootLogin no
+StrictModes no
+MaxSessions 10
+PubkeyAuthentication yes
+PasswordAuthentication yes
+PermitEmptyPasswords no
+KbdInteractiveAuthentication yes
+UsePAM yes
+
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+PermitTTY yes
+PrintMotd no
+PrintLastLog no
+TCPKeepAlive no
+
+Banner none
+
+AcceptEnv LANG LC_*
+Subsystemsftp/usr/lib/openssh/sftp-server
+PubkeyAcceptedAlgorithms=+ssh-rsa
+HostKeyAlgorithms +ssh-rsa

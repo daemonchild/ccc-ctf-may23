@@ -25,9 +25,7 @@ apt install -y kali-linux-default
 
 # SSH Config
 
-echo "PubkeyAcceptedAlgorithms=+ssh-rsa" >> /etc/ssh/sshd_config
-echo "HostKeyAlgorithms +ssh-rsa" >> /etc/ssh/sshd_config
-sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+wget -q -O - "${scriptsource}/kali/sshd_config.txt" > /etc/ssh/sshd_config
 systemctl restart sshd
 
 # Diable IPv6
@@ -71,6 +69,7 @@ chsh student -s /bin/zsh
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /root/google-chrome-stable_current_amd64.deb
 apt-get -y install fonts-liberation desktop-file-utils mailcap man-db
 dpkg -i /root/google-chrome-stable_current_amd64.deb
+rm /root/google-chrome-stable_current_amd64.deb
 
 # Stop that annoying popup!
 wget -q -O - "${scriptsource}/kali/45-allow-colord.pkla" > /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
@@ -78,6 +77,18 @@ wget -q -O - "${scriptsource}/kali/45-allow-colord.pkla" > /etc/polkit-1/localau
 # Customisation
 wget -q -O - "${scriptsource}/kali/motd.txt" > /etc/motd
 wget -q -O - "${scriptsource}/kali/cybercollege-admiral-wallpaper.jpg" > /etc/wallpaper.jpg
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorrdp0/workspace0/last-image -s /etc/wallpaper.png
+
+touch /home/kaliadmin/"___PLEASE LEAVE THIS FOLDER ALONE - REQUIRED FOR CTF STAFF SUPPORT___"
+
+# clear up
+
+for u in root kaliadmin student do {
+
+   cat /dev/null > /home/$u/.bash_history;
+   cat /dev/null > /home/$u/.zsh_history;
+} done
+   
 
 
 
