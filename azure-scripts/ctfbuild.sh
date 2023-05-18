@@ -437,6 +437,12 @@ builddockersvr () {
     local staticip="${twooctets}.${team}.${dockerstatic}"
     local subnetname="${challengenetprefix}-${team}"
 
+    echo $vmname, $staticip, $subnetname
+
+}
+
+dummy () {}
+
     az network nsg create --resource-group $resgrp --name "nsg-${vmname}"
 
     az vm create --name $vmname \
