@@ -83,11 +83,10 @@ touch /home/kaliadmin/"___PLEASE LEAVE THIS FOLDER ALONE - REQUIRED FOR CTF STAF
 
 # clear up
 
-for u in root kaliadmin student do {
-
+for u in root kaliadmin student; do 
    cat /dev/null > /home/$u/.bash_history;
    cat /dev/null > /home/$u/.zsh_history;
-} done
+done
 
 rm /root/setup.sh
 
