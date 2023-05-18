@@ -1,5 +1,7 @@
 #!/bin/bash
 
+scriptsource="https://raw.githubusercontent.com/daemonchild/ccc-ctf-may23/main/setup-scripts"
+
 export LANG=en_GB.utf8
 export LANGUAGE=
 export LC_CTYPE="en_GB.utf8"
@@ -15,6 +17,7 @@ export LC_TELEPHONE="en_GB.utf8"
 export LC_MEASUREMENT="en_GB.utf8"
 export LC_IDENTIFICATION="en_GB.utf8"
 export LC_ALL=
+
 echo "[Installing Full Kali]"
 apt update
 apt full-upgrade -y
@@ -69,19 +72,13 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -
 apt-get -y install fonts-liberation desktop-file-utils mailcap man-db
 dpkg -i /root/google-chrome-stable_current_amd64.deb
 
+# Stop that annoying popup!
+wget -q -O - "${scriptsource}/kali/45-allow-colord.pkla" > /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
 
-cat <<EOF > /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
-polkit.addRule(function(action, subject) {
-   if ((action.id == "org.freedesktop.color-manager.create-device" ||
-        action.id == "org.freedesktop.color-manager.create-profile" ||
-        action.id == "org.freedesktop.color-manager.delete-device" ||
-        action.id == "org.freedesktop.color-manager.delete-profile" ||
-        action.id == "org.freedesktop.color-manager.modify-device" ||
-        action.id == "org.freedesktop.color-manager.modify-profile") &&
-       subject.isInGroup("sudo")) {
-      return polkit.Result.YES;
-   }
-});
-EOF
+# Customisation
+wget -q -O - "${scriptsource}/kali/motd.txt" > /etc/motd
+wget -q -O - "${scriptsource}/kali/cybercollege-admiral-wallpaper.jpg" > /etc/wallpaper.jpg
+
+
 
 
