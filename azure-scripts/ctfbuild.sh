@@ -522,8 +522,10 @@ buildkali () {
 
     az vm run-command invoke -g $resgrp -n $vmname  \
         --command-id RunShellScript \
-        --scripts "wget -q -O - ${scriptsource}/kali/setup.sh | bash" 
+        --scripts "wget -q ${scriptsource}/kali/setup.sh -O /root/setup.sh"
+        # --scripts "wget -q -O - ${scriptsource}/kali/setup.sh | bash"          DFW because the packages need interative apt-get. :(
 
+        echo "!!! NOW GO RUN SETUP.SH !!!"
  
     # add Rules to firewall
 

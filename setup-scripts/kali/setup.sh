@@ -88,7 +88,6 @@ for u in root kaliadmin student; do
    cat /dev/null > /home/$u/.zsh_history;
 done
 
-rm /root/setup.sh
 
 
 
