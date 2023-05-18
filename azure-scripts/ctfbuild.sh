@@ -441,7 +441,7 @@ builddockersvr () {
 
 }
 
-dummy () {}
+dummy () {
 
     az network nsg create --resource-group $resgrp --name "nsg-${vmname}"
 
