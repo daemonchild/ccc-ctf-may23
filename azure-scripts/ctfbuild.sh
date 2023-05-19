@@ -453,7 +453,7 @@ builddockersvr () {
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
-    #az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" 
+    az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" 
     az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
     # Deploy setup script
@@ -478,6 +478,7 @@ updatestatics () {
 
         echo $vmname, $staticip, $subnetname
 
+        az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}"
         az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
         vmname="${vmprefix}-Kali-${team}"
@@ -485,7 +486,7 @@ updatestatics () {
         subnetname="${challengenetprefix}-${team}"
 
         echo $vmname, $staticip, $subnetname
-
+        az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}"
         az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
     done
