@@ -578,11 +578,11 @@ kalifirewall () {
         source=$(echo $LINE | cut -d "," -f 2 | sed "s/x/$team/g")
         dest=$(echo $LINE | cut -d "," -f 3)
         destport=$(echo $LINE | cut -d "," -f 4)
-        action=$(echo $LINE | cut -d "," -f 6)
-        name=$(echo $LINE | cut -d "," -f 7)
+        action=$(echo $LINE | cut -d "," -f 5)
+        name=$(echo $LINE | cut -d "," -f 6)
         protocol="Tcp"
 
-        echo $source
+        echo $name
 
         az network nsg rule create \
         --resource-group $resgrp \
