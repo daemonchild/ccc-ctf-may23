@@ -76,10 +76,10 @@ wget -q -O - "${scriptsource}/kali/45-allow-colord.pkla" > /etc/polkit-1/localau
 
 # Customisation
 wget -q -O - "${scriptsource}/kali/motd.txt" > /etc/motd
-wget -q -O - "${scriptsource}/kali/cybercollege-admiral-wallpaper.jpg" > /etc/wallpaper.jpg
+wget -q -O - "${scriptsource}/kali/cybercollege-admiral-wallpaper.png" > /etc/wallpaper.png
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorrdp0/workspace0/last-image -s /etc/wallpaper.png
 
-touch /home/kaliadmin/"___PLEASE LEAVE THIS FOLDER ALONE - REQUIRED FOR CTF STAFF SUPPORT___"
+su - ctfadmin -c 'touch /home/kaliadmin/"___PLEASE LEAVE THIS FOLDER ALONE - REQUIRED FOR CTF STAFF SUPPORT___"'
 
 # clear up
 
