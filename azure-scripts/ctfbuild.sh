@@ -478,7 +478,7 @@ updatestatics () {
         local staticip="${twooctets}.${team}.${dockerstatic}"
         local subnetname="${challengenetprefix}-${team}"
 
-        echo $vmname, $staticip, $subnetname
+        echo "$vmname, $staticip, $subnetname, $dockerstatic"
 
         az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}"
         az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
