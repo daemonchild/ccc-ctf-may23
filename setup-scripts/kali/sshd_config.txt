@@ -24,6 +24,5 @@ TCPKeepAlive no
 Banner none
 
 AcceptEnv LANG LC_*
-Subsystemsftp/usr/lib/openssh/sftp-server
 PubkeyAcceptedAlgorithms=+ssh-rsa
 HostKeyAlgorithms +ssh-rsa
