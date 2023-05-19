@@ -472,6 +472,8 @@ updatestatics () {
 
     for team in $(seq $start $end); do
 
+        echo "(${team})"
+
         local vmname="${vmprefix}-Dockerhost-${team}"
         local staticip="${twooctets}.${team}.${dockerstatic}"
         local subnetname="${challengenetprefix}-${team}"
@@ -486,6 +488,7 @@ updatestatics () {
         subnetname="${challengenetprefix}-${team}"
 
         echo $vmname, $staticip, $subnetname
+        az network nic create --resource-group $resgrp --name vm-Kali-1VMNic --vnet-name $vnet --subnet subnetTeam-1
         az network nic ip-config create --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}"
         az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
@@ -540,7 +543,7 @@ buildkali () {
     --nsg "nsg-${vmname}" 
     #--no-wait \
 
-    #az network nic ip-config create --resource-group $resgrp --name "ipconfig${vmname}" --nic-name "${vmname}VMNic"
+    az network nic ip-config create --resource-group $resgrp --name "ipconfig${vmname}" --nic-name "${vmname}VMNic"
     az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
 
 
