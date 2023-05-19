@@ -654,7 +654,7 @@ guacfirewall () {
 
         az network nsg rule create \
         --resource-group $resgrp \
-        --nsg-name "nsg-${guacsubnet}" \
+        --nsg-name "nsg-${guacsubnetname}" \
         --name $name \
         --access $action \
         --protocol $protocol \
@@ -685,7 +685,7 @@ ctfdfirewall () {
 
         az network nsg rule create \
         --resource-group $resgrp \
-        --nsg-name "nsg-${guacsubnet}" \
+        --nsg-name "nsg-${ctfdsubnetname}" \
         --name $name \
         --access $action \
         --protocol $protocol \
