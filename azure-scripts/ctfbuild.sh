@@ -574,12 +574,12 @@ kalifirewall () {
 
     while read LINE ; do 
     
-        priority=$(echo LINE | cut -d "," -f 1)
-        source=$(echo LINE | cut -d "," -f 2 | sed "s/x/$team/g")
-        dest=$(echo LINE | cut -d "," -f 3)
-        destport=$(echo LINE | cut -d "," -f 4)
-        action=$(echo LINE | cut -d "," -f 6)
-        name=$(echo LINE | cut -d "," -f 7)
+        priority=$(echo $LINE | cut -d "," -f 1)
+        source=$(echo $LINE | cut -d "," -f 2 | sed "s/x/$team/g")
+        dest=$(echo $LINE | cut -d "," -f 3)
+        destport=$(echo $LINE | cut -d "," -f 4)
+        action=$(echo $LINE | cut -d "," -f 6)
+        name=$(echo $LINE | cut -d "," -f 7)
         protocol="Tcp"
 
         echo $source
