@@ -1,5 +1,5 @@
 100,10.250.250.0/25,10.250.0.0/18,22,allow,AllowGuacInbound22
 110,10.250.250.0/25,10.250.0.0/18,3389,allow,AllowGuacInbound3389
-120,10.250.x.0/24,10.250.x.50/32,*,allow,AllowLocalnetTraffic
-130,10.250.0.0/18,10.250.0.0/18,*,deny,BlockChallengeNets
-500,*,*,*,deny,BlockEverythingElse
+120,10.250.x.0/24,10.250.x.50/32,0-65535,allow,AllowLocalnetTraffic
+130,10.250.0.0/18,10.250.0.0/18,0-65535,deny,BlockChallengeNets
+500,0.0.0.0/0,0.0.0.0/0,0-65535,deny,BlockEverythingElse

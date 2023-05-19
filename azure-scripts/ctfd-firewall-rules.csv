@@ -1,0 +1,5 @@
+100,Internet,10.250.251.0/24,80,accept,AppGwTraffic80
+120,Internet,10.250.251.0/24,65200-65535,accept,AppGwTraffic65200
+130,10.250.0.0/18,10.250.0.0/18,0-65535,deny,BlockChallengeNets
+200,10.250.240.0/24,0.0.0.0/0,22,accept,AllowMgmtFromUtilNet
+500,0.0.0.0/0,0.0.0.0/0,0-65535,deny,BlockEverythingElse

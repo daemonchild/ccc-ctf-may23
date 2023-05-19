@@ -1,0 +1,4 @@
+210,10.250.240.0/24,0.0.0.0/0,6222,allow,AllowMgmtFromUtilNet
+230,0.0.0.0/0,0.0.0.0/0,6222,deny,BlockSSHAttempts
+240,10.250.x.50,0.0.0.0/0,0-65535,allow,AllowKaliTraffic
+500,0.0.0.0/0,0.0.0.0/0,0-65535,deny,BlockEverythingElse

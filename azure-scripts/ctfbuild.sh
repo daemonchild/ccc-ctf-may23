@@ -599,3 +599,102 @@ kalifirewall () {
     done < "./azure-scripts/kali-firewall-rules.csv"
 
 }
+
+dockerfirewall () {
+
+    local team=$1
+
+    local vmname="${vmprefix}-Dockerhost-${team}"
+
+    local subnetname="${challengenetprefix}-${team}"
+    local subnet="${twooctets}.${team}.0/24"
+
+    while read LINE ; do 
+    
+        priority=$(echo $LINE | cut -d "," -f 1)
+        source=$(echo $LINE | cut -d "," -f 2 | sed "s/x/$team/g")
+        dest=$(echo $LINE | cut -d "," -f 3 | sed "s/x/$team/g")
+        destport=$(echo $LINE | cut -d "," -f 4)
+        action=$(echo $LINE | cut -d "," -f 5)
+        name=$(echo $LINE | cut -d "," -f 6)
+        protocol="Tcp"
+
+        echo $name, $source, $dest, $destport
+
+        az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${vmname}" \
+        --name $name \
+        --access $action \
+        --protocol $protocol \
+        --direction Inbound \
+        --priority $priority \
+        --source-address-prefix $source \
+        --source-port-range "*" \
+        --destination-address-prefix $dest \
+        --destination-port-range $destport
+    done < "./azure-scripts/dockerhost-firewall-rules.csv"
+
+}
+
+guacfirewall () {
+
+
+    while read LINE ; do 
+    
+        priority=$(echo $LINE | cut -d "," -f 1)
+        source=$(echo $LINE | cut -d "," -f 2 )
+        dest=$(echo $LINE | cut -d "," -f 3 )
+        destport=$(echo $LINE | cut -d "," -f 4)
+        action=$(echo $LINE | cut -d "," -f 5)
+        name=$(echo $LINE | cut -d "," -f 6)
+        protocol="Tcp"
+
+        echo $name, $source, $dest, $destport
+
+        az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnet}" \
+        --name $name \
+        --access $action \
+        --protocol $protocol \
+        --direction Inbound \
+        --priority $priority \
+        --source-address-prefix $source \
+        --source-port-range "*" \
+        --destination-address-prefix $dest \
+        --destination-port-range $destport
+    done < "./azure-scripts/guacamole-firewall-rules.csv"
+
+}
+
+ctfdfirewall () {
+
+
+    while read LINE ; do 
+    
+        priority=$(echo $LINE | cut -d "," -f 1)
+        source=$(echo $LINE | cut -d "," -f 2 )
+        dest=$(echo $LINE | cut -d "," -f 3 )
+        destport=$(echo $LINE | cut -d "," -f 4)
+        action=$(echo $LINE | cut -d "," -f 5)
+        name=$(echo $LINE | cut -d "," -f 6)
+        protocol="Tcp"
+
+        echo $name, $source, $dest, $destport
+
+        az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${guacsubnet}" \
+        --name $name \
+        --access $action \
+        --protocol $protocol \
+        --direction Inbound \
+        --priority $priority \
+        --source-address-prefix $source \
+        --source-port-range "*" \
+        --destination-address-prefix $dest \
+        --destination-port-range $destport
+    done < "./azure-scripts/ctfd-firewall-rules.csv"
+
+}
