@@ -584,18 +584,18 @@ kalifirewall () {
 
         echo $source
 
-        #az network nsg rule create \
-        #--resource-group $resgrp \
-        #--nsg-name "nsg-${vmname}" \
-        #--name $name \
-        #--access $action \
-        #--protocol $protocol \
-        #--direction Inbound \
-        #--priority $priority \
-        #--source-address-prefix $source \
-        #--source-port-range "*" \
-        #--destination-address-prefix $dest \
-        #--destination-port-range $destport
+        az network nsg rule create \
+        --resource-group $resgrp \
+        --nsg-name "nsg-${vmname}" \
+        --name $name \
+        --access $action \
+        --protocol $protocol \
+        --direction Inbound \
+        --priority $priority \
+        --source-address-prefix $source \
+        --source-port-range "*" \
+        --destination-address-prefix $dest \
+        --destination-port-range $destport
     done < azure-scripts/kali-firewall-rules.csv
 
 }
