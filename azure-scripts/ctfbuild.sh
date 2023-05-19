@@ -463,8 +463,32 @@ builddockersvr () {
         --scripts "wget -q -O - ${scriptsource}/docker/setup.sh | bash" 
 
     # add Rules to firewall
+}
 
+updatestatics () {
 
+    local start=$1
+    local end=$2
+
+    for team in $(seq $start $end); do
+
+        local vmname="${vmprefix}-Dockerhost-${team}"
+        local staticip="${twooctets}.${team}.${dockerstatic}"
+        local subnetname="${challengenetprefix}-${team}"
+
+        echo $vmname, $staticip, $subnetname
+
+        az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
+
+        vmname="${vmprefix}-Kali-${team}"
+        staticip="${twooctets}.${team}.${kalistatic}"
+        subnetname="${challengenetprefix}-${team}"
+
+        echo $vmname, $staticip, $subnetname
+
+        az network nic ip-config update --resource-group $resgrp --nic-name "${vmname}VMNic" --name "ipconfig${vmname}" --private-ip-address $staticip
+
+    done
 
 }
 
