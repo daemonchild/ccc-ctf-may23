@@ -576,7 +576,7 @@ kalifirewall () {
     
         priority=$(echo $LINE | cut -d "," -f 1)
         source=$(echo $LINE | cut -d "," -f 2 | sed "s/x/$team/g")
-        dest=$(echo $LINE | cut -d "," -f 3)
+        dest=$(echo $LINE | cut -d "," -f 3 | sed "s/x/$team/g"))
         destport=$(echo $LINE | cut -d "," -f 4)
         action=$(echo $LINE | cut -d "," -f 5)
         name=$(echo $LINE | cut -d "," -f 6)
