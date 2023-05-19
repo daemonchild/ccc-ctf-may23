@@ -582,7 +582,7 @@ kalifirewall () {
         name=$(echo $LINE | cut -d "," -f 6)
         protocol="Tcp"
 
-        echo $name
+        echo $name, $source, $dest, $destport
 
         az network nsg rule create \
         --resource-group $resgrp \
