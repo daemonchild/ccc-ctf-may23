@@ -596,6 +596,6 @@ kalifirewall () {
         #--source-port-range "*" \
         #--destination-address-prefix $dest \
         #--destination-port-range $destport
-    done
+    done < azure-scripts\kali-firewalls.csv
 
 }
