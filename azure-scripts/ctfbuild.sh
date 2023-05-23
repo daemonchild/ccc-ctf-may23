@@ -534,7 +534,6 @@ buildkali () {
     --image $kaliimage \
     --admin-username $kaliadmin \
     --generate-ssh-keys \
-    #--public-ip-sku "" \
     --public-ip-address "" \
     --vnet-name $vnet \
     --subnet $subnetname \
