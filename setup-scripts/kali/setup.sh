@@ -54,16 +54,24 @@ systemctl set-default graphical.target
 
 # User experience
 
-useradd -m student
-echo 'student:5tudent!' | chpasswd
-
-touch /home/student/.hushlogin 
 touch /home/kaliadmin/.hushlogin
 
-echo 'student ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
-usermod -a -G sudo student
-chsh student -s /bin/zsh
+for s in a b c d e; do
 
+   username="student${s}"
+
+   echo $username
+
+   useradd -m $username
+   echo "$username:5tudent!" | chpasswd
+
+   touch /home/$username/.hushlogin 
+
+   echo "$username ALL=(ALL) NOPASSWD:ALL" | EDITOR='tee -a' visudo
+   usermod -a -G sudo $username
+   chsh $username -s /bin/zsh
+
+done
 
 # install chrome, firefox, additional tools
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /root/google-chrome-stable_current_amd64.deb
@@ -88,7 +96,7 @@ for u in root kaliadmin student; do
    cat /dev/null > /home/$u/.zsh_history;
 done
 
-
+reboot
 
 
 
