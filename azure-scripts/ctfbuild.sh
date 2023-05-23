@@ -528,7 +528,7 @@ buildkali () {
 
     echo $vmname, $staticip, $subnetname, $twooctets
 
-    exit
+    read pause
 
     az vm create --name $vmname \
     --resource-group $resgrp \
