@@ -56,6 +56,8 @@ systemctl set-default graphical.target
 
 touch /home/kaliadmin/.hushlogin
 
+userdel -r student
+
 for s in a b c d e; do
 
    username="student${s}"
