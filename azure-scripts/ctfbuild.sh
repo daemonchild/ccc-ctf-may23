@@ -434,10 +434,10 @@ builddockersvr () {
 
     local team=$1
     local vmname="${vmprefix}-Dockerhost-${team}"
-    local staticip="${twooctets}.${team}.${dockerstatic}"
+    local staticip="${twooctets}.${team}${dockerstatic}"
     local subnetname="${challengenetprefix}-${team}"
 
-    echo $vmname, $staticip, $subnetname
+    echo $vmname, $staticip, $subnetname, $twooctets
 
     az network nsg create --resource-group $resgrp --name "nsg-${vmname}"
 
@@ -506,6 +506,7 @@ buildchallengenet () {
     local subnet="${twooctets}.${team}.0/24"
     az network vnet subnet create --name $subnetname --vnet-name $vnet --resource-group $resgrp --address-prefixes $subnet
 
+
     builddockersvr $team
     buildkali $team
 
@@ -528,15 +529,13 @@ buildkali () {
     dockerhostname="${vmprefix}-host-team${i}"
     kalihostname="${vmprefix}-kali-team${i}"
 
-    dockerstatic="${snetprefix}.50"
-    kalistatic="${snetprefix}.200"
-
     az vm create --name $vmname \
     --resource-group $resgrp \
     --size $kalisku \
     --image $kaliimage \
     --admin-username $kaliadmin \
     --generate-ssh-keys \
+    #--public-ip-sku "" \
     --public-ip-address "" \
     --vnet-name $vnet \
     --subnet $subnetname \

@@ -89,7 +89,7 @@ wget -q -O - "${scriptsource}/kali/motd.txt" > /etc/motd
 wget -q -O - "${scriptsource}/kali/cybercollege-admiral-wallpaper.png" > /etc/wallpaper.png
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorrdp0/workspace0/last-image -s /etc/wallpaper.png
 
-su - ctfadmin -c 'touch /home/kaliadmin/"___PLEASE LEAVE THIS FOLDER ALONE - REQUIRED FOR CTF STAFF SUPPORT___"'
+su - kaliadmin -c 'touch /home/kaliadmin/"___PLEASE LEAVE THIS FOLDER ALONE - REQUIRED FOR CTF STAFF SUPPORT___"'
 
 # clear up
 
