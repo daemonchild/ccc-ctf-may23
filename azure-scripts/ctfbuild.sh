@@ -434,7 +434,7 @@ builddockersvr () {
 
     local team=$1
     local vmname="${vmprefix}-Dockerhost-${team}"
-    local staticip="${twooctets}.${team}${dockerstatic}"
+    local staticip="${twooctets}.${team}.${dockerstatic}"
     local subnetname="${challengenetprefix}-${team}"
 
     echo $vmname, $staticip, $subnetname, $twooctets
