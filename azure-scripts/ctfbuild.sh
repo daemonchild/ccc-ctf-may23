@@ -526,8 +526,9 @@ buildkali () {
     local subnet="${twooctets}.${team}.0/24"
     local staticip="${twooctets}.${team}.${kalistatic}"
 
-    dockerhostname="${vmprefix}-host-team${i}"
-    kalihostname="${vmprefix}-kali-team${i}"
+    echo $vmname, $staticip, $subnetname, $twooctets
+
+    exit
 
     az vm create --name $vmname \
     --resource-group $resgrp \
