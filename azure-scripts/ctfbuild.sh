@@ -526,7 +526,7 @@ buildkali () {
     local subnet="${twooctets}.${team}.0/24"
     local staticip="${twooctets}.${team}.${kalistatic}"
 
-    echo $vmname, $staticip, $subnetname, $twooctets
+    echo $vmname, $staticip, $subnetname, $subnet, $twooctets
 
     read pause
 
