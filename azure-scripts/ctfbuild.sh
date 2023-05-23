@@ -528,8 +528,6 @@ buildkali () {
 
     echo $vmname, $staticip, $subnetname, $subnet, $twooctets
 
-    read pause
-
     az vm create --name $vmname \
     --resource-group $resgrp \
     --size $kalisku \
