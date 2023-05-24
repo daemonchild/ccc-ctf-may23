@@ -77,7 +77,7 @@ setvars () {
 
     export linuxsku="Standard_D2s_v3"
     export kalisku="Standard_D2s_v3"
-    export dockersku="Standard_D2s_v3"
+    export dockersku="Standard_D2_v3"
     export guacsku="Standard_D2_v3"
     export ctfdsku="Standard_D2_v3"
 

@@ -24,4 +24,6 @@ docker pull scriptmonkeyblog/hackback
 docker run --restart always -dit  -p 80:80 --name ctf-webby scriptmonkeyblog/webby
 docker run --restart always -dit  -p 22:22 --name ctf-hackback scriptmonkeyblog/hackback
 
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
 
