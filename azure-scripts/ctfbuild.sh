@@ -91,9 +91,9 @@ setvars () {
 
     # Build Values
 
-    export guacscale=1
-    export ctfdscale=1
-    export challenge=1
+    export guacscale=3
+    export ctfdscale=3
+    export challenge=32
 
     # MySQL Database
 
